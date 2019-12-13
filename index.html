@@ -1,0 +1,146 @@
+<!doctype html>
+<!-- 
+
+Dual Axis Rotation Illusion
+© Frank Force 2019
+
+GitHub Corner is Copyright (c) 2016 Tim Holman - http://tholman.com
+
+-->
+<html>
+<head>
+<title>Dual Axis Rotation Illusion - By Frank Force</title>
+</head>
+<style>
+</style>
+<body>
+<center>
+<font size=6><b>Dual Axis Rotation Illusion - By Frank Force</b></font>
+<font size=5>
+<br>
+<a href='http://illusionoftheyear.com/2019/12/dual-axis-illusion/' target='_blank'><i>Best Illusion of The Year - First Place Winner</i></a>
+<br>
+<br>
+<b>Spin Axis </b>
+<input type=radio name=radio_spinAxis value='' checked> Ambiguous
+<input type=radio name=radio_spinAxis value='vertical'> Vertical
+<input type=radio name=radio_spinAxis value='horizontal'> Horizontal
+<br>
+<b>Spin Direction </b>
+<input type=radio name=radio_spinDirection value=1 checked> Positive
+<input type=radio name=radio_spinDirection value=-1> Negative
+<br>
+<b>Show Dots </b><input type=checkbox id=checkbox_showDots>
+<br>
+</font>
+<canvas id=c width=1280 height=720></canvas>
+</center>
+<script>
+
+"use strict";
+
+const x = c.getContext('2d');
+const PI = Math.PI;
+const S = Math.sin;
+const xCenter = c.width/2;
+const yCenter = c.height/2;
+const width = 450;
+const height = 300;
+let t = 0;
+
+function DrawCurvePoint(pos, color, radius=30, stroke=0)
+{
+    let X = width*S(pos/3);
+    let Y = height*S(t+pos/2);
+    x.beginPath();
+    x.arc(xCenter+X, yCenter+Y*.9, radius, 0, 7);
+    x.fillStyle = color;
+    x.strokeStyle = color;
+    stroke ? x.stroke() : x.fill();
+}
+
+function Update()
+{
+    // get settings
+    let spinAxis = document.querySelector('input[name="radio_spinAxis"]:checked').value;
+    let spinDirection = parseFloat(document.querySelector('input[name="radio_spinDirection"]:checked').value);
+    let showDots = checkbox_showDots.checked;
+
+    // clear canvas
+    c.width += 0;
+    x.lineWidth = 10;
+    t += spinDirection/60;   
+
+    // draw curve
+    let I = 1e3;
+    for(let i=I; i--;)
+        DrawCurvePoint(2*6*PI*i/I, "#000");
+
+    if (!showDots)
+    {
+        if (spinAxis == 'horizontal')
+        {
+            // draw fade
+            x.fillStyle = '#F00';
+            for(let i=-32; i<=32; ++i)
+            {
+                x.globalAlpha = 2-2*Math.abs(i)/32;
+                x.fillRect(0, yCenter+i*8, 2e3, 8);
+            }
+            x.globalAlpha = 1;
+
+            // draw the front part of the curve again
+            for(let i=I;i--;)
+            {
+                if (S(6*PI*i/I+2*PI+1.4+t) > 0)
+                    DrawCurvePoint(2*6*PI*i/I, "#000");
+            }
+        }
+        else if (spinAxis == 'vertical')
+        {
+            // draw fade
+            x.fillStyle = '#08F';
+            for(let i=-32; i<=32; ++i)
+            {
+                x.globalAlpha = 2-2*Math.abs(i)/32;
+                x.fillRect(xCenter+i*12, 0, 12, 2e3);
+            }
+            x.globalAlpha = 1;
+            
+            // draw the front part of the curve again
+            for(let i=I;i--;)
+            {
+                if (S(4*PI*i/I+2*PI/4) < 0)
+                    DrawCurvePoint(2*6*PI*i/I, "#000");
+            }
+        }
+    }
+    else
+    {
+        if (spinAxis == 'horizontal' || spinAxis == '')
+        {
+            // draw dots on overlaps
+            let color = '#F00';
+            DrawCurvePoint( 1.57, color, 70, 1);
+            DrawCurvePoint( 7.87, color, 70, 1);
+            DrawCurvePoint(11.00, color, 70, 1);
+            DrawCurvePoint(17.28, color, 70, 1);
+        }
+        if (spinAxis == 'vertical' || spinAxis == '')
+        {
+            // draw dots on overlaps
+            // this part is a bit hacky, it should use DrawCurvePoint
+            x.strokeStyle = '#08F';
+            x.beginPath(), x.arc(xCenter+width*S(1.05+t*2/3), yCenter, 70, 0, 7), x.stroke();
+            x.beginPath(), x.arc(xCenter+width*S(3.14+t*2/3), yCenter, 70, 0, 7), x.stroke();
+            x.beginPath(), x.arc(xCenter+width*S(5.24+t*2/3), yCenter, 70, 0, 7), x.stroke();
+        }
+    }
+}
+
+setInterval(Update, 16);
+
+</script>
+<a href="https://github.com/KilledByAPixel/DualAxisRotation" target="_blank" class="github-corner" aria-label="View source on GitHub"><svg width="80" height="80" viewBox="0 0 250 250" style="fill:#08F; color:#FFF; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+</body>
+</html>
