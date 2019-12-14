@@ -30,7 +30,7 @@ GitHub Corner is Copyright (c) 2016 Tim Holman - http://tholman.com
 <input type=radio name=radio_spinDirection value=1 checked> Positive
 <input type=radio name=radio_spinDirection value=-1> Negative
 <br>
-<b>Show Dots </b><input type=checkbox id=checkbox_showDots>
+<b>Circle Overlaps </b><input type=checkbox id=checkbox_circleOverlaps>
 <br>
 </font>
 <canvas id=c width=1280 height=720></canvas>
@@ -64,7 +64,7 @@ function Update()
     // get settings
     let spinAxis = document.querySelector('input[name="radio_spinAxis"]:checked').value;
     let spinDirection = parseFloat(document.querySelector('input[name="radio_spinDirection"]:checked').value);
-    let showDots = checkbox_showDots.checked;
+    let showDots = checkbox_circleOverlaps.checked;
 
     // clear canvas
     c.width += 0;
