@@ -22,15 +22,15 @@ GitHub Corner is Copyright (c) 2016 Tim Holman - http://tholman.com
 <br>
 <br>
 <b>Spin Axis </b>
-<input type=radio name=radio_spinAxis value='' checked> Ambiguous
-<input type=radio name=radio_spinAxis value='vertical'> Vertical
-<input type=radio name=radio_spinAxis value='horizontal'> Horizontal
+<input type=radio name=radio_spinAxis value='' id='ambiguous' checked> <label for='ambiguous'>Ambiguous</label>
+<input type=radio name=radio_spinAxis value='vertical' id='vertical'> <label for='vertical'>Vertical</label>
+<input type=radio name=radio_spinAxis value='horizontal' id='horizontal'> <label for='horizontal'>Horizontal</label>
 <br>
 <b>Spin Direction </b>
-<input type=radio name=radio_spinDirection value=1 checked> Positive
-<input type=radio name=radio_spinDirection value=-1> Negative
+<input type=radio name=radio_spinDirection value=1 id='positive' checked> <label for='positive'>Positive</label>
+<input type=radio name=radio_spinDirection value=-1 id='negative'> <label for='negative'>Negative</label>
 <br>
-<b>Circle Overlaps </b><input type=checkbox id=checkbox_circleOverlaps>
+<b><label for='checkbox_circleOverlaps'>Circle Overlaps</label> </b><input type=checkbox id=checkbox_circleOverlaps>
 <br>
 </font>
 <canvas id=c width=1280 height=720></canvas>
