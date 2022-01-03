@@ -61,6 +61,12 @@ function DrawCurvePoint(pos, color, radius=30, stroke=0)
 
 function Update()
 {
+    if (self !== top && !document.hasFocus())
+    {
+        requestAnimationFrame(loop);
+        return;
+    }
+
     // get settings
     let spinAxis = document.querySelector('input[name="radio_spinAxis"]:checked').value;
     let spinDirection = parseFloat(document.querySelector('input[name="radio_spinDirection"]:checked').value);
