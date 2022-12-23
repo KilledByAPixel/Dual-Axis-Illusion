@@ -90,13 +90,17 @@ function Update(nextTimestamp)
         if (spinAxis == 'horizontal')
         {
             // draw fade
-            x.fillStyle = '#F00';
-            for(let i=-32; i<=32; ++i)
-            {
-                x.globalAlpha = 2-2*Math.abs(i)/32;
-                x.fillRect(0, yCenter+i*8, 2e3, 8);
-            }
-            x.globalAlpha = 1;
+            const gradient = x.createLinearGradient(xCenter, 0, xCenter, c.height);
+            gradient.addColorStop(0, "transparent");
+            gradient.addColorStop(0.15, "transparent");
+            gradient.addColorStop(0.15, "rgba(255,0,0,0.06)");
+            gradient.addColorStop(0.3, "#F00");
+            gradient.addColorStop(0.7, "#F00");
+            gradient.addColorStop(0.85, "rgba(255,0,0,0.06)");
+            gradient.addColorStop(0.85, "transparent");
+            gradient.addColorStop(1, "transparent");
+            x.fillStyle = gradient;
+            x.fillRect(0, 0, c.width, c.height);
 
             // draw the front part of the curve again
             for(let i=I;i--;)
@@ -108,14 +112,18 @@ function Update(nextTimestamp)
         else if (spinAxis == 'vertical')
         {
             // draw fade
-            x.fillStyle = '#08F';
-            for(let i=-32; i<=32; ++i)
-            {
-                x.globalAlpha = 2-2*Math.abs(i)/32;
-                x.fillRect(xCenter+i*12, 0, 12, 2e3);
-            }
-            x.globalAlpha = 1;
-            
+            const gradient = x.createLinearGradient(0, yCenter, c.width, yCenter);
+            gradient.addColorStop(0, "transparent");
+            gradient.addColorStop(0.2, "transparent");
+            gradient.addColorStop(0.2, "rgba(0,128,240,0.06)");
+            gradient.addColorStop(0.35, "#08F");
+            gradient.addColorStop(0.65, "#08F");
+            gradient.addColorStop(0.8, "rgba(0,128,240,0.06)");
+            gradient.addColorStop(0.8, "transparent");
+            gradient.addColorStop(1, "transparent");
+            x.fillStyle = gradient;
+            x.fillRect(0, 0, c.width, c.height);
+
             // draw the front part of the curve again
             for(let i=I;i--;)
             {
