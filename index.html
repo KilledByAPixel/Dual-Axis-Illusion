@@ -87,7 +87,7 @@ function Update(nextTimestamp)
 
     if (!showDots)
     {
-        if (spinAxis == 'horizontal')
+        if (spinAxis === 'horizontal')
         {
             // draw fade
             const gradient = x.createLinearGradient(xCenter, 0, xCenter, c.height);
@@ -109,7 +109,7 @@ function Update(nextTimestamp)
                     DrawCurvePoint(2*6*PI*i/I, "#000");
             }
         }
-        else if (spinAxis == 'vertical')
+        else if (spinAxis === 'vertical')
         {
             // draw fade
             const gradient = x.createLinearGradient(0, yCenter, c.width, yCenter);
@@ -134,7 +134,7 @@ function Update(nextTimestamp)
     }
     else
     {
-        if (spinAxis == 'horizontal' || spinAxis == '')
+        if (spinAxis !== 'vertical')
         {
             // draw dots on overlaps
             let color = '#F00';
@@ -143,7 +143,7 @@ function Update(nextTimestamp)
             DrawCurvePoint(11.00, color, 70, 1);
             DrawCurvePoint(17.28, color, 70, 1);
         }
-        if (spinAxis == 'vertical' || spinAxis == '')
+        if (spinAxis !== 'horizontal')
         {
             // draw dots on overlaps
             // this part is a bit hacky, it should use DrawCurvePoint
