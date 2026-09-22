@@ -10,3 +10,11 @@ This code provides an interactive interface for playing with this illusion.
 # [OFFICIAL ENTRY PAGE](http://illusionoftheyear.com/2019/12/dual-axis-illusion/)
 
 ![screenshot](/dualaxis.gif)
+
+## License
+The code in this repository is licensed under GPL-2.0.
+
+The Dual Axis Illusion GIF and artwork are © Frank Force and licensed
+under CC BY-NC-SA 4.0. They may be shared for non-commercial purposes,
+such as explaining the illusion, with credit. Commercial use, including
+use in logos or branding, requires permission.
